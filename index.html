@@ -16,10 +16,10 @@
     <main>
         <img src="img/bag.png" alt="Sacola de compras">
         <form>
-            <input id="input-item" type="text" placeholder="Digite o item que deseja adicionar.">
-            <button id="adicionar-botao">Salvar item</button>
+            <input class="input-item"    id="input-item" type="text" placeholder="Digite o item que deseja adicionar.">
+            <button class="button-item" id="adicionar-item">Salvar item</button>
         </form>
-        <ul>
+        <ul id="lista-de-compras">
             <h2>Lista de Compras</h2>
             <hr />
             <li>
@@ -47,8 +47,13 @@
                 <p class="item-lista-texto">Segunda-feira (31/01/2024) as 8:30</p>
             </li>
         </ul>
+        <h2>Comprado</h2>
+        <hr />
+        <ul id="lista-comprados">
+            
+        </ul>
     </main>
-
+    <script src="scripts.js"></script>
 </body>
 
 </html>
