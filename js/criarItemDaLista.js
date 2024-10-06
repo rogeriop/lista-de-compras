@@ -1,5 +1,8 @@
+import { editarItem } from "./editarItem.js";
+import { excluirItem } from "./excluirItem.js";
 
 const listaComprados = document.getElementById("lista-comprados");
+const listaDeCompras = document.getElementById("lista-de-compras");
 let contador = 0;
 
 
@@ -60,6 +63,10 @@ export function criarItemDaLista(item) {
     const imagemRemover = document.createElement("img");
     imagemRemover.src = "img/delete.svg";
     imagemRemover.alt = "Remover";
+
+    botaoRemover.addEventListener('click', function() {
+        excluirItem(itemDaLista);
+    })
     
     botaoRemover.appendChild(imagemRemover);
     
@@ -68,6 +75,10 @@ export function criarItemDaLista(item) {
     const imagemEditar = document.createElement("img");
     imagemEditar.src = "img/edit.svg";
     imagemEditar.alt = "Editar";
+
+    botaoEditar.addEventListener("click", function() {
+        editarItem(itemDaLista);
+    })
     
     botaoEditar.appendChild(imagemEditar);
     
