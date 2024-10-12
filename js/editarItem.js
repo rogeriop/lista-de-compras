@@ -2,7 +2,6 @@ import { mudarNomeCompras } from "./bancoListas.js";
 import { mudarNomeComprados } from "./bancoListas.js";
 
 export const editarItem = (elemento) => {
-    debugger;
     let novoItem = prompt("Digite o novo nome do item:");
     if (novoItem !== null && novoItem.trim() !== "") {
         const itemTextoAtualizado = elemento.querySelector("#item-titulo");

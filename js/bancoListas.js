@@ -7,97 +7,58 @@ export function carregaDoStorage() {
     produtosComprados = JSON.parse(localStorage.getItem('produtosComprados')) || [];
 }
 
-function armazenaNoStorage() {
-    localStorage.setItem('produtos', JSON.stringify(produtos));
-    localStorage.setItem('produtosComprados', JSON.stringify(produtosComprados));
-}
-
 export function trocaParaListaDeComprados (item) {
-    //debugger
     carregaDoStorage();
-    const produtosAux = [];
-    let i = 0;
-
-    produtos.forEach((elemento) => {
-        if(elemento != item) {
-            produtosAux[i] = elemento;
-            i++;
-        }
-    });
-    produtos = [...produtosAux];
+    const produtosAux = produtos.filter ((produto) => {
+        return produto != item;
+    })
     produtosComprados.push(item); 
-    armazenaNoStorage();
-
+    localStorage.setItem('produtos', JSON.stringify(produtosAux));
+    localStorage.setItem('produtosComprados', JSON.stringify(produtosComprados));
 }
 
 export function trocaParaListaDeCompras (item) {
     carregaDoStorage();
-    const produtosAux = [];
-    let i = 0;
-
-    produtosComprados.forEach((elemento) => {
-        if(elemento != item) {
-            produtosAux[i] = elemento;
-            i++;
-        }
-    });
-    produtosComprados = [...produtosAux];
+    const produtosAux = produtosComprados.filter((produto) => {
+        return produto != item;
+    })
     produtos.push(item); 
-    armazenaNoStorage();
+    localStorage.setItem('produtos', JSON.stringify(produtos));
+    localStorage.setItem('produtosComprados', JSON.stringify(produtosAux));
 }
 
 export function excluiDaListaDeCompras(item) {
     carregaDoStorage();
-    const produtosAux = [];
-    let i = 0;
-
-    produtos.forEach((elemento) => {
-        if(elemento != item) {
-            produtosAux[i] = elemento;
-            i++;
-        }
+    const produtosAux = produtos.filter((produto) => {
+        return produto != item;
     });
-    produtos = [...produtosAux];
-    localStorage.setItem('produtos', JSON.stringify(produtos));
-
+    localStorage.setItem('produtos', JSON.stringify(produtosAux));
 }
 
 export function excluiDaListaDosComprados(item) {
     carregaDoStorage();
-    const produtosAux = [];
-    let i = 0;
-
-    produtosComprados.forEach((elemento) => {
-        if(elemento != item) {
-            produtosAux[i] = elemento;
-            i++;
-        }
+    const produtosAux = produtosComprados.filter((produto) => {
+        return produto != item;
     });
-    produtosComprados = [...produtosAux];
-    localStorage.setItem('produtosComprados', JSON.stringify(produtosComprados));
-
+    localStorage.setItem('produtosComprados', JSON.stringify(produtosAux));
 }
 
 export function mudarNomeCompras(antigoItem, novoItem) {
     carregaDoStorage();
-//debugger;
     produtos.forEach((elemento, ind) => {
         if(elemento == antigoItem) {
             produtos[ind] = novoItem;
         }
     });
     localStorage.setItem('produtos', JSON.stringify(produtos));
-
 }
 
 export function mudarNomeComprados(antigoItem, novoItem) {
     carregaDoStorage();
-debugger;
     produtosComprados.forEach((elemento, ind) => {
         if(elemento == antigoItem) {
             produtosComprados[ind] = novoItem;
         } 
     });
     localStorage.setItem('produtosComprados', JSON.stringify(produtosComprados));
-
 }

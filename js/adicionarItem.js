@@ -1,6 +1,5 @@
 import { criarItemDaLista } from "./criarItemDaLista.js";
 import { verificarListaVazia } from "./verificarListaVazia.js";
-import { criarItemDaListaDeComprados } from "./criarItemDaLista.js";
 
 const item = document.getElementById("input-item");
 const listaDeCompras = document.getElementById("lista-de-compras");
@@ -9,17 +8,18 @@ const listaDeComprados = document.getElementById("lista-comprados");
 let produtos = JSON.parse(localStorage.getItem('produtos')) || [];
 let produtosComprados = JSON.parse(localStorage.getItem('produtosComprados')) || [];
 
-
 produtos.forEach(produto => {
     salvaItem(produto);
  });
 
 produtosComprados.forEach(produto => {
-    const itemDaLista = criarItemDaListaDeComprados(produto);
+    const itemDaLista = criarItemDaLista(produto);
     listaDeComprados.appendChild(itemDaLista);
-//    verificarListaVazia(listaDeCompras);
+    itemDaLista.querySelector(".checkbox-input").checked = true;
+    itemDaLista.querySelector(".checkbox-customizado").classList.add("checked");
+    const itemTextoAtualizado = itemDaLista.querySelector("#item-titulo");
+    itemTextoAtualizado.style.textDecoration = "line-through";
 })
- 
 
 function salvaItem(descricao) {
     const itemDaLista = criarItemDaLista(descricao)
@@ -29,7 +29,6 @@ function salvaItem(descricao) {
 
 export function adicionarItem(evento) {
     evento.preventDefault();
-    //debugger;
     if(item.value === "") {
         alert("Por favor, insira um item");
         return;
