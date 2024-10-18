@@ -1,4 +1,5 @@
 import { criarItemDaLista } from "./criarItemDaLista.js";
+import { manipulaDataTransacao } from "./manipulaDataTransacao.js";
 import { verificarListaVazia } from "./verificarListaVazia.js";
 
 const item = document.getElementById("input-item");
@@ -8,21 +9,25 @@ const listaDeComprados = document.getElementById("lista-comprados");
 let produtos = JSON.parse(localStorage.getItem('produtos')) || [];
 let produtosComprados = JSON.parse(localStorage.getItem('produtosComprados')) || [];
 
-produtos.forEach(produto => {
-    salvaItem(produto);
+produtos.forEach(objetoProduto => {
+    salvaItem(objetoProduto);
  });
 
-produtosComprados.forEach(produto => {
-    const itemDaLista = criarItemDaLista(produto);
-    listaDeComprados.appendChild(itemDaLista);
+produtosComprados.forEach(objetoProduto => {
+    const itemDaLista = criarItemDaLista(objetoProduto.descricao);
     itemDaLista.querySelector(".checkbox-input").checked = true;
     itemDaLista.querySelector(".checkbox-customizado").classList.add("checked");
     const itemTextoAtualizado = itemDaLista.querySelector("#item-titulo");
+    const itemData = itemDaLista.querySelector(".data-hora-texto");
+    itemData.innerText = objetoProduto.dataTransacao;
     itemTextoAtualizado.style.textDecoration = "line-through";
+    listaDeComprados.appendChild(itemDaLista);
 })
 
-function salvaItem(descricao) {
-    const itemDaLista = criarItemDaLista(descricao)
+function salvaItem(objetoProduto) {
+    const itemDaLista = criarItemDaLista(objetoProduto.descricao)
+    const itemData = itemDaLista.querySelector(".data-hora-texto");
+    itemData.innerText = objetoProduto.dataTransacao;
     listaDeCompras.appendChild(itemDaLista);
     verificarListaVazia(listaDeCompras);
 }
@@ -33,13 +38,16 @@ export function adicionarItem(evento) {
         alert("Por favor, insira um item");
         return;
     }
+    //debugger;
+    const objetoProduto = {
+        descricao: item.value,
+        dataTransacao: manipulaDataTransacao()
+    }
     
-    let produto = item.value;
-    
-    produtos.push(produto);
+    produtos.push(objetoProduto);
     localStorage.setItem('produtos', JSON.stringify(produtos));
     
-    salvaItem(item.value);
+    salvaItem(objetoProduto);
 
     item.value = "";
 

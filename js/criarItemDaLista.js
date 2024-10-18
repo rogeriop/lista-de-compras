@@ -2,6 +2,7 @@ import { editarItem } from "./editarItem.js";
 import { excluirItem } from "./excluirItem.js";
 import { trocaParaListaDeComprados } from "./bancoListas.js";
 import { trocaParaListaDeCompras } from "./bancoListas.js";
+import { manipulaDataTransacao } from "./manipulaDataTransacao.js";
 
 
 const listaComprados = document.getElementById("lista-comprados");
@@ -32,16 +33,25 @@ export function criarItemDaLista(item) {
         const checkboxInput = evento.currentTarget.querySelector(".checkbox-input");
         const checkboxCustomizado = evento.currentTarget.querySelector(".checkbox-customizado");
         const itemTitulo = evento.currentTarget.closest("li").querySelector("#item-titulo");
+
+        const itemData = itemDaLista.querySelector(".data-hora-texto");
+        itemData.innerText = manipulaDataTransacao();
+
+        const objetoProduto = {
+            descricao: item,
+            dataTransacao: itemData.innerText
+        }
         if(checkboxInput.checked) {
+            //debugger;
             checkboxCustomizado.classList.add("checked");
             itemTitulo.style.textDecoration = "line-through";
             listaComprados.appendChild(itemDaLista);
-            trocaParaListaDeComprados(item);
+            trocaParaListaDeComprados(objetoProduto);
         } else {
             checkboxCustomizado.classList.remove("checked"); 
             itemTitulo.style.textDecoration = "none";
             listaDeCompras.appendChild(itemDaLista);
-            trocaParaListaDeCompras(item);
+            trocaParaListaDeCompras(objetoProduto);
         }
     })
     
@@ -60,6 +70,7 @@ export function criarItemDaLista(item) {
     containerNomeDoItem.appendChild(nomeDoItem);
     
     const containerBotoes = document.createElement("div");
+    containerBotoes.classList.add("container-botoes");
     const botaoRemover = document.createElement("button");
     botaoRemover.classList.add("botao-acao");
     
@@ -89,7 +100,8 @@ export function criarItemDaLista(item) {
     containerBotoes.appendChild(botaoEditar);
     
     const itemData = document.createElement("p");
-    itemData.innerText = `${new Date().toLocaleDateString("pt-BR", { weekday: "long"})} (${new Date().toLocaleDateString()}) às ${new Date().toLocaleTimeString("pt-BR", {hour: "numeric", minute: "numeric"} )}`;
+    itemData.classList.add("data-hora-texto");
+    itemData.innerText = manipulaDataTransacao();
     itemDaLista.classList.add("item-lista-texto");
     
     

@@ -6,16 +6,14 @@ import { excluiDaListaDosComprados } from "./bancoListas.js";
 
 const listaDeCompras = document.getElementById("lista-de-compras");
 const listaComprados = document.getElementById("lista-comprados");
-const excluirItem = (elemento) => {
-    let confirmacao = confirm("Tem certeza que deseja excluir esse item?");
-    const descricaoItem = elemento.querySelector("#item-titulo").innerText;
-    console.log(descricaoItem);
-    const checkboxInput = elemento.querySelector(".checkbox-input");
-    console.log(checkboxInput);
-    console.log(checkboxInput.checked);
-
+const excluirItem = (itemDaLista) => {
+    //debugger;
+    const descricaoItem = itemDaLista.querySelector("#item-titulo").innerText;
+    const checkboxInput = itemDaLista.querySelector(".checkbox-input");
+    
+    let confirmacao = confirm(`Tem certeza que deseja excluir ${descricaoItem}?`);
     if (confirmacao) {
-        elemento.remove();
+        itemDaLista.remove();
         if (checkboxInput.checked) {
             excluiDaListaDosComprados(descricaoItem);
         } else {
