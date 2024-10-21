@@ -1,70 +1,68 @@
 
 let produtos;
 let produtosComprados;
+let ind;
 
-export function carregaDoStorage() {
+function achaIndice(argumento, lista) {
+    ind = lista.findIndex((objetoProduto) => {
+        return objetoProduto.descricao == argumento});
+}
+
+function excluiItem(argumento, lista) {
+    achaIndice(argumento, lista);
+    return lista.splice(ind, 1);
+}
+
+function carregaDoStorage() {
     produtos = JSON.parse(localStorage.getItem('produtos')) || [];
     produtosComprados = JSON.parse(localStorage.getItem('produtosComprados')) || [];
 }
 
+export function gravaNoStorage(identifica) {
+    if(identifica=="produtos" || identifica=="produtos&produtosComprados")
+        localStorage.setItem('produtos', JSON.stringify(produtos));
+    if(identifica=="produtosComprados" || identifica=="produtos&produtosComprados")
+        localStorage.setItem('produtosComprados', JSON.stringify(produtosComprados));
+}
+
 export function trocaParaListaDeComprados (objetoProduto) {
     carregaDoStorage();
-    //debugger;
-    const produtosAux = produtos.filter ((produto) => {
-        return produto.descricao != objetoProduto.descricao;
-    })
-
+    excluiItem(objetoProduto.descricao, produtos);
     produtosComprados.push(objetoProduto); 
-    localStorage.setItem('produtos', JSON.stringify(produtosAux));
-    localStorage.setItem('produtosComprados', JSON.stringify(produtosComprados));
+    gravaNoStorage("produtos&produtosComprados");
 }
 
 export function trocaParaListaDeCompras (objetoProduto) {
     carregaDoStorage();
-    const produtosAux = produtosComprados.filter((produto) => {
-        return produto.descricao != objetoProduto.descricao;
-    })
-
+    excluiItem(objetoProduto.descricao, produtosComprados);
     produtos.push(objetoProduto); 
-    localStorage.setItem('produtos', JSON.stringify(produtos));
-    localStorage.setItem('produtosComprados', JSON.stringify(produtosAux));
+    gravaNoStorage("produtos&produtosComprados");
 }
 
 export function excluiDaListaDeCompras(descricaoItem) {
     carregaDoStorage();
-    debugger;
-    const produtosAux = produtos.filter((produto) => {
-        return produto.descricao != descricaoItem;
-    });
-    localStorage.setItem('produtos', JSON.stringify(produtosAux));
+    excluiItem(descricaoItem, produtos);
+    gravaNoStorage("produtos");
 }
 
 export function excluiDaListaDosComprados(descricaoItem) {
     carregaDoStorage();
-    const produtosAux = produtosComprados.filter((produto) => {
-        return produto.descricao != descricaoItem;
-    });
-    localStorage.setItem('produtosComprados', JSON.stringify(produtosAux));
+    excluiItem(descricaoItem, produtosComprados);
+    gravaNoStorage("produtosComprados");
 }
 
 export function mudarNomeCompras(antigoItem, novoItem, novaDataHora) {
     carregaDoStorage();
-    produtos.forEach((objetoProduto, ind) => {
-        if(objetoProduto.descricao == antigoItem) {
-            produtos[ind].descricao = novoItem;
-            produtos[ind].dataTransacao = novaDataHora;
-        }
-    });
-    localStorage.setItem('produtos', JSON.stringify(produtos));
+    achaIndice(antigoItem, produtos);
+    produtos[ind].descricao = novoItem;
+    produtos[ind].dataTransacao = novaDataHora;
+    gravaNoStorage("produtos");
 }
 
 export function mudarNomeComprados(antigoItem, novoItem, novaDataHora) {
     carregaDoStorage();
-    produtosComprados.forEach((objetoProduto, ind) => {
-        if(objetoProduto.descricao == antigoItem) {
-            produtosComprados[ind].descricao = novoItem;
-            produtosComprados[ind].dataTransacao = novaDataHora;
-        } 
-    });
-    localStorage.setItem('produtosComprados', JSON.stringify(produtosComprados));
+    achaIndice(antigoItem, produtosComprados);
+    produtosComprados[ind].descricao = novoItem;
+    produtosComprados[ind].dataTransacao = novaDataHora;
+    gravaNoStorage("produtosComprados");
 }

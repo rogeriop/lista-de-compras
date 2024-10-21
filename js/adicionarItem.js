@@ -38,7 +38,6 @@ export function adicionarItem(evento) {
         alert("Por favor, insira um item");
         return;
     }
-    //debugger;
     const objetoProduto = {
         descricao: item.value,
         dataTransacao: manipulaDataTransacao()
@@ -46,10 +45,7 @@ export function adicionarItem(evento) {
     
     produtos.push(objetoProduto);
     localStorage.setItem('produtos', JSON.stringify(produtos));
-    
     salvaItem(objetoProduto);
-
     item.value = "";
-
 }
 

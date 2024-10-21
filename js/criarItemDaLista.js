@@ -8,6 +8,7 @@ import { manipulaDataTransacao } from "./manipulaDataTransacao.js";
 const listaComprados = document.getElementById("lista-comprados");
 const listaDeCompras = document.getElementById("lista-de-compras");
 let contador = 0;
+let flag = 0;
 
 export function criarItemDaLista(item) {
     const itemDaLista = document.createElement("li");
@@ -29,29 +30,31 @@ export function criarItemDaLista(item) {
     checkboxLabel.setAttribute("for", checkBoxInput.id);
     
     checkboxLabel.addEventListener("click", function(evento) {
-        //debugger;
-        const checkboxInput = evento.currentTarget.querySelector(".checkbox-input");
-        const checkboxCustomizado = evento.currentTarget.querySelector(".checkbox-customizado");
-        const itemTitulo = evento.currentTarget.closest("li").querySelector("#item-titulo");
+        ++flag;
+        if(flag==2) {
+            flag=0;
+            const checkboxInput = evento.currentTarget.querySelector(".checkbox-input");
+            const checkboxCustomizado = evento.currentTarget.querySelector(".checkbox-customizado");
+            const itemTitulo = evento.currentTarget.closest("li").querySelector("#item-titulo");
 
-        const itemData = itemDaLista.querySelector(".data-hora-texto");
-        itemData.innerText = manipulaDataTransacao();
+            const itemData = itemDaLista.querySelector(".data-hora-texto");
+            itemData.innerText = manipulaDataTransacao();
 
-        const objetoProduto = {
-            descricao: item,
-            dataTransacao: itemData.innerText
-        }
-        if(checkboxInput.checked) {
-            //debugger;
-            checkboxCustomizado.classList.add("checked");
-            itemTitulo.style.textDecoration = "line-through";
-            listaComprados.appendChild(itemDaLista);
-            trocaParaListaDeComprados(objetoProduto);
-        } else {
-            checkboxCustomizado.classList.remove("checked"); 
-            itemTitulo.style.textDecoration = "none";
-            listaDeCompras.appendChild(itemDaLista);
-            trocaParaListaDeCompras(objetoProduto);
+            const objetoProduto = {
+                descricao: item,
+                dataTransacao: itemData.innerText
+            }
+            if(checkboxInput.checked) {
+                checkboxCustomizado.classList.add("checked");
+                itemTitulo.style.textDecoration = "line-through";
+                listaComprados.appendChild(itemDaLista);
+                trocaParaListaDeComprados(objetoProduto);
+            } else {
+                checkboxCustomizado.classList.remove("checked"); 
+                itemTitulo.style.textDecoration = "none";
+                listaDeCompras.appendChild(itemDaLista);
+                trocaParaListaDeCompras(objetoProduto);
+            }
         }
     })
     
