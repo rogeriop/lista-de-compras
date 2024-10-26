@@ -1,5 +1,5 @@
-import { mudarNomeCompras } from "./bancoListas.js";
-import { mudarNomeComprados } from "./bancoListas.js";
+import { mudarNomeCompras } from "./operaListas.js";
+import { mudarNomeComprados } from "./operaListas.js";
 import { manipulaDataTransacao } from "./manipulaDataTransacao.js";
 
 export const editarItem = (itemDaLista) => {

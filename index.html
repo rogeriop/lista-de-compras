@@ -20,14 +20,36 @@
             <button class="button-item" id="adicionar-item">Salvar item</button>
         </form>
         <div class="container-lista">
-            <h2>Lista de Compras</h2>
+            <div class="container-lista-compras">
+                <h2>Lista de Compras</h2>
+                <div class="container-botoes-titulo">
+                    <button class="botao-acao" id="botao__exclui-listaCompras">
+                        <img src="./img/delete.svg" alt="Exclui Lista"> 
+                    </button>
+                    <button class="botao-acao" id="botao__ordena-listaCompras">
+                        <img src="./img/ordena.png" alt="Ordena Lista"> 
+                    </button>
+                </div>
+            </div>
             <hr />
 
             <ul id="lista-de-compras">
                 <p id="mensagem-lista-vazia" style="display: block">Sua lista está vazia. Adicione itens a ela para não esquecer nada na próxima compra!</p>
             </ul>
 
-            <h2>Comprados</h2>
+            <div class="container-lista-comprados">
+                <h2>Comprados</h2>
+                <div>
+                    <div class="container-botoes-titulo">
+                        <button class="botao-acao" id="botao__exclui-listaComprados">
+                            <img src="./img/delete.svg" alt="Exclui Lista"> 
+                        </button>
+                        <button class="botao-acao" id="botao__ordena-listaComprados">
+                            <img src="./img/ordena.png" alt="Ordena Lista"> 
+                        </button>
+                    </div>
+                </div>
+            </div>
             <hr />
 
             <ul id="lista-comprados">

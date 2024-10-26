@@ -1,7 +1,7 @@
 import { verificarListaVazia } from "./verificarListaVazia.js";
 //import { verificarListaComprados } from "./verificaListaComprados.js";
-import { excluiDaListaDeCompras } from "./bancoListas.js";
-import { excluiDaListaDosComprados } from "./bancoListas.js";
+import { excluiDaListaDeCompras } from "./operaListas.js";
+import { excluiDaListaDosComprados } from "./operaListas.js";
 
 
 const listaDeCompras = document.getElementById("lista-de-compras");

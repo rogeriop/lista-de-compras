@@ -1,7 +1,7 @@
 import { editarItem } from "./editarItem.js";
 import { excluirItem } from "./excluirItem.js";
-import { trocaParaListaDeComprados } from "./bancoListas.js";
-import { trocaParaListaDeCompras } from "./bancoListas.js";
+import { trocaParaListaDeComprados } from "./operaListas.js";
+import { trocaParaListaDeCompras } from "./operaListas.js";
 import { manipulaDataTransacao } from "./manipulaDataTransacao.js";
 
 
