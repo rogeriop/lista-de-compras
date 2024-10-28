@@ -104,10 +104,12 @@ export function carregaListaNoFormularioDeComprados() {
 
 export function ordenaLista(array, propriedade) {
     return array.sort(function(a, b) {
-        if (a[propriedade] < b[propriedade]) {
+        const aNormalizado = a[propriedade].normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const bNormalizado = b[propriedade].normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        if (aNormalizado < bNormalizado) {
             return -1;
         }
-        if(a[propriedade] > b[propriedade]) {
+        if(aNormalizado > bNormalizado) {
             return 1;
         }
         return 0;
